@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KhungLong</string>
+    <string name="facebook_app_id">513216934273987</string>
+    <string name="fb_login_protocol_scheme">fb3dfb66a91ac3d5fe174ffc6f675b5949</string>
+    <string name="facebook_client_token">3dfb66a91ac3d5fe174ffc6f675b5949</string>
+
+
+</resources>
