@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:khung_long/auth/siginwithfb.dart';
+import 'package:khung_long/logic_dino/logic_dino.dart';
 
 import 'auth_service.dart';
 
@@ -11,6 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _isLoggedIn = false;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -42,6 +46,18 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Text(
                 'Đăng Nhập',
+                style: GoogleFonts.mulish(
+                    textStyle: const TextStyle(fontSize: 20),
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w400),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                SignInFB().signInWithFacebook();
+              },
+              child: Text(
+                'Đăng Nhập bằng FB',
                 style: GoogleFonts.mulish(
                     textStyle: const TextStyle(fontSize: 20),
                     color: Colors.blue,
