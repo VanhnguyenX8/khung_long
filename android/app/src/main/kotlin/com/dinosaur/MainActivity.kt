@@ -1,4 +1,4 @@
-package com.example.khung_long
+package com.dinosaur
 
 import io.flutter.embedding.android.FlutterActivity
 

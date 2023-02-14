@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vietanh.khung_long">
+    package="com.dinosaur">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="khung_long"
