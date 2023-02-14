@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dinosaur">
+    package="com.entertainment.dinosaur">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="khung_long"
+        android:label="Khủng Long"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>

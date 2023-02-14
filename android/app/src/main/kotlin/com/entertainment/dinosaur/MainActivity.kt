@@ -1,4 +1,4 @@
-package com.dinosaur
+package com.entertainment.dinosaur
 
 import io.flutter.embedding.android.FlutterActivity
 
