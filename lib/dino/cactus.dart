@@ -34,19 +34,20 @@ List<Sprite> cacti = [
 ];
 
 class Cactus extends GameObject {
-  final Sprite sprite;
-  final Offset worldLocation;
+  final Sprite sprite; // do chi co the co 1 sprite trong suot cuoc doi cua no nen dat final
+  final Offset worldLocation; // vi tri
 
   Cactus({required this.worldLocation}) : sprite = cacti[Random().nextInt(cacti.length)];
-
+// chon sprite ngau nhien
   @override
   Rect getRect(Size screenSize, double runDistance) {
     return Rect.fromLTWH(
       (worldLocation.dx - runDistance) * worlToPixelRatio,
+      // va chuyen ve pixcel
       screenSize.height / 1.75 - sprite.imageHeight,
       sprite.imageWidth.toDouble(),
       sprite.imageHeight.toDouble(),
-    );
+    ); // vi tri cua cay xuong rong dan xuat hien 
   }
 
   @override

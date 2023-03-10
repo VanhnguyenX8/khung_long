@@ -19,27 +19,29 @@ class DinoRunWidget extends StatefulWidget {
 class _DinoRunWidgetState extends State<DinoRunWidget>
     with SingleTickerProviderStateMixin {
   Dino dino = Dino();
-  double runVelocity = initialVelocity;
-  double runDistance = 0;
+  double runVelocity = initialVelocity; // khai bao van toc chay
+  double runDistance = 0; // khoang cach chay
   int highScore = 0;
   TextEditingController gravityController =
-      TextEditingController(text: gravity.toString());
+      TextEditingController(text: gravity.toString()); // trong luc
   TextEditingController accelerationController =
-      TextEditingController(text: acceleration.toString());
+      TextEditingController(text: acceleration.toString()); // tang toc
   TextEditingController jumpVelocityController =
-      TextEditingController(text: jumpVelocity.toString());
+      TextEditingController(text: jumpVelocity.toString()); // van toc nhay
   TextEditingController runVelocityController =
-      TextEditingController(text: initialVelocity.toString());
+      TextEditingController(text: initialVelocity.toString()); // toc do chay
   TextEditingController dayNightOffestController =
-      TextEditingController(text: dayNightOffest.toString());
+      TextEditingController(text: dayNightOffest.toString()); // ngay dem
 
   late AnimationController worldController;
+  //[AnimationController]: tao tuyen tinh cac gia tri nam trong khoang 0,0 -> 1.0 trong time nhat dinh
+  // vong doi : loai bo khi khong can thiet thuong duoc tao trong pphuong thuc initState va xoa trong dispose
   Duration lastUpdateCall = const Duration();
 
-  List<Cactus> cacti = [Cactus(worldLocation: const Offset(200, 0))];
+  List<Cactus> cacti = [Cactus(worldLocation: const Offset(200, 0))]; // chuong ngai vat
 
   List<Ground> ground = [
-    Ground(worldLocation: const Offset(0, 0)),
+    Ground(worldLocation: const Offset(1000, 0)),
     Ground(worldLocation: Offset(groundSprite.imageWidth / 10, 0))
   ];
 
@@ -54,7 +56,10 @@ class _DinoRunWidgetState extends State<DinoRunWidget>
     super.initState();
     worldController =
         AnimationController(vsync: this, duration: const Duration(days: 99));
+        // dat days la 90 de cho hoat anh nay khong bao gio ket thuc khi nguoi dung van con choi
+        // hoat anh nay se kiem soat tat ca cac hoat anh trong 1 lan
     worldController.addListener(_update);
+    // goi nguoi nghe moi khi gia tri cua hoat anh thay doi
     // worldController.forward();
     _die();
   }
@@ -96,10 +101,11 @@ class _DinoRunWidgetState extends State<DinoRunWidget>
       worldController.forward();
     });
   }
-
+// y tuong va cham : check xem dino va xuong rong cac phan tu o vuong cua no co chong len nhau hay khong
+// tinh toan kich thuoc cua hinh chu nhat bang cach dung getect
   _update() {
     try {
-      double elapsedTimeSeconds;
+      double elapsedTimeSeconds; // thoi gian da troi qua
       dino.update(lastUpdateCall, worldController.lastElapsedDuration);
       try {
         elapsedTimeSeconds =
@@ -110,20 +116,26 @@ class _DinoRunWidgetState extends State<DinoRunWidget>
         elapsedTimeSeconds = 0;
       }
 
-      runDistance += runVelocity * elapsedTimeSeconds;
+      runDistance += runVelocity * elapsedTimeSeconds; // bien nay de cho khoang cach giua dino va khung long giam dan
       if (runDistance < 0) runDistance = 0;
       runVelocity += acceleration * elapsedTimeSeconds;
 
       Size screenSize = MediaQuery.of(context).size;
+      // lay ra ca 2 doi so chieu rong va chieu dai
 
       Rect dinoRect = dino.getRect(screenSize, runDistance);
       for (Cactus cactus in cacti) {
         Rect obstacleRect = cactus.getRect(screenSize, runDistance);
         if (dinoRect.overlaps(obstacleRect.deflate(20))) {
+          // dieu kien check va cham
           _die();
         }
 
         if (obstacleRect.right < 0) {
+          // hien thi vi tri chuong ngai vat
+          // neu vi tri cay suong rong da ra khoi man hinh
+          // thi remove cay cu
+          // tao cay moi
           setState(() {
             cacti.remove(cactus);
             cacti.add(Cactus(
@@ -135,7 +147,7 @@ class _DinoRunWidgetState extends State<DinoRunWidget>
           });
         }
       }
-
+      // lam cho ground khong bao gio bi mat tren han hinh
       for (Ground groundlet in ground) {
         if (groundlet.getRect(screenSize, runDistance).right < 0) {
           setState(() {
@@ -197,9 +209,10 @@ class _DinoRunWidgetState extends State<DinoRunWidget>
           animation: worldController,
           builder: (context, _) {
             Rect objectRect = object.getRect(screenSize, runDistance);
+            // ????
             return Positioned(
               left: objectRect.left,
-              top: objectRect.top,
+              top: objectRect.top + 70,
               width: objectRect.width,
               height: objectRect.height,
               child: object.render(),
@@ -217,6 +230,7 @@ class _DinoRunWidgetState extends State<DinoRunWidget>
             : Colors.black,
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
+          // do child co the la null nen dung translucent
           onTap: () {
             if (dino.state != DinoState.dead) {
               dino.jump();

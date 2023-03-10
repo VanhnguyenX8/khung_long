@@ -36,11 +36,11 @@ enum DinoState {
   running,
   dead,
 }
-
+// gioi han trang thai nhay cua khung long
 class Dino extends GameObject {
   Sprite currentSprite = dino[0];
-  double dispY = 0;
-  double velY = 0;
+  double dispY = 0; // do dich chuyen cua Dino
+  double velY = 0; // van toc cua Dino
   DinoState state = DinoState.running;
 
   @override
@@ -63,6 +63,7 @@ class Dino extends GameObject {
     double elapsedTimeSeconds;
     try {
       currentSprite = dino[(elapsedTime!.inMilliseconds / 100).floor() % 2 + 2];
+      // mili(s) cu 100 mili(s) no se chuyen anh nay sang anh khac lam hoat anh chuyen dong
     } catch (_) {
       currentSprite = dino[0];
     }
@@ -79,12 +80,18 @@ class Dino extends GameObject {
       dispY = 0;
       velY = 0;
       state = DinoState.running;
-    } else {
+    } // cau lenh nay de khi con khung long cham xuong mat day
+      // no se khong di sau vao trong mat dat
+    
+     else {
       velY -= gravity * elapsedTimeSeconds;
     }
   }
 
   void jump() {
+    // can chac chan ranc chua nhay lan nao thi moi duoc nhay lan dau
+    // dieu nay han che viec bam qua nhieu lan vao man hinh
+    // con khung long se khong con tren man hinh
     if (state != DinoState.jumping) {
       state = DinoState.jumping;
       velY = jumpVelocity;

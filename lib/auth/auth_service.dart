@@ -14,7 +14,7 @@ class AuthService {
           if (snapshot.hasData) {
             return const DinoRunWidget();
           } else {
-            return  const LoginPage();
+            return  const DinoRunWidget();
           }
         });
   }
